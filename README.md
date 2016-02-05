@@ -7,7 +7,10 @@
 - 显示主题详情和评论
 
 #运行截图
-![截图加载中](http://7xored.com1.z0.glb.clouddn.com/apps_shots_v2ex_rn.gif)
+<img src="http://7xored.com1.z0.glb.clouddn.com/apps_shots_v2ex_rn_1.png" width="200">
+<img src="http://7xored.com1.z0.glb.clouddn.com/apps_shots_v2ex_rn_2.png" width="200">
+<img src="http://7xored.com1.z0.glb.clouddn.com/apps_shots_v2ex_rn_3.png" width="200">
+<img src="http://7xored.com1.z0.glb.clouddn.com/apps_shots_v2ex_rn_4.png" width="200">
 
 #TODO
 - 主题详情界面增加图片显示

@@ -7,6 +7,7 @@ import React, {
     ScrollView,
     Text,
     Image,
+    ToolbarAndroid,
 } from 'react-native';
 
 var LoadingView = require('../Common/LoadingView');
@@ -24,6 +25,10 @@ var TopicView = React.createClass({
         var time = DateUtil.formatterToFromNow(topic.last_modified);
         return (
             <ScrollView style={styles.container}>
+                <ToolbarAndroid
+                    title={this.props.title}
+                    titleColor="#FFFFFF"
+                    style={styles.toolbar}/>
                 <View style={styles.topView}>
                     <View style={styles.topicInfo}>
                         <Image source={{uri: authorAvatarUri}}
@@ -117,7 +122,11 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 10,
         fontSize: 14,
-    }
+    },
+    toolbar: {
+        backgroundColor: '#3F51b5',
+        height: 56,
+    },
 });
 
 module.exports = TopicView;

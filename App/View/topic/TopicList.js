@@ -1,13 +1,13 @@
 'use strict';
 
-//热门主题
-
+//主题列表
 import React, {
     Component,
     StyleSheet,
     Text,
     View,
     ListView,
+    ToolbarAndroid,
 } from 'react-native';
 
 var DataRepository = require('../../Util/DataRepository');
@@ -28,11 +28,19 @@ var TopicList = React.createClass({
     },
 
     componentDidMount: function () {
-        this.fetchData();
+        var url;
+        if (this.props.nodeId === 'hot') {
+            url = DataRepository.API_HOT_TOPICS;
+        } else if (this.props.nodeId === 'latest') {
+            url = DataRepository.API_LATEST_TOPICS;
+        } else {
+            url = `${ DataRepository.API_NODE_TOPICS }?node_id=${ this.props.nodeId }`;
+        }
+        this.fetchData(url);
     },
 
-    fetchData: function () {
-        repository.getHotTopics((responseJson)=> {
+    fetchData: function (url) {
+        repository.baseFetch(url, (responseJson)=> {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(responseJson),
                 loaded: true,
@@ -47,7 +55,21 @@ var TopicList = React.createClass({
         if (!this.state.loaded) {
             return this.renderLoadingView();
         } else {
-            return this.renderListView();
+            var isNotAlone = this.props.nodeId === 'hot' || this.props.nodeId === 'latest';
+            if (isNotAlone) {
+                return this.renderListView();
+            } else {
+                return (
+                    <View style={styles.topicContainer}>
+                        <ToolbarAndroid
+                            title={this.props.title}
+                            titleColor="#FFFFFF"
+                            style={styles.toolbar}/>
+                        {this.renderListView()}
+                    </View>
+                );
+            }
+
         }
     },
 
@@ -75,7 +97,7 @@ var TopicList = React.createClass({
                 onSelect={() => {
                 this.selectTopic(topic);
               }}/>
-        );
+        )
     },
 
     selectTopic: function (topic) {
@@ -84,11 +106,18 @@ var TopicList = React.createClass({
             name: 'topic',
             topic: topic,
         });
-    },
+    }
 
 });
 
 const styles = StyleSheet.create({
+    toolbar: {
+        backgroundColor: '#3F51b5',
+        height: 56,
+    },
+    topicContainer: {
+        flex: 1,
+    },
     listView: {
         flex: 1,
     }
