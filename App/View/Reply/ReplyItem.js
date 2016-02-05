@@ -8,8 +8,8 @@ import React, {
     Image,
 } from 'react-native';
 
-var DividerLine = require('../DividerLine');
-var DateUtil = require('../util/DateUtil');
+var DividerLine = require('../Common/DividerLine');
+var DateUtil = require('../../Util/DateUtil');
 
 var ReplyItem = React.createClass({
 

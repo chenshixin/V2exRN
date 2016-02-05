@@ -14,12 +14,8 @@ import React, {
     BackAndroid,
 } from 'react-native';
 
-var TopicList = require('./View/topic/TopicList');
-var TopicView = require('./View/topic/TopicView');
-//时间插件
-var moment = require('moment');
-require('moment/locale/zh-cn');
-moment.locale('zh-cn');
+var TopicList = require('./App/View/topic/TopicList');
+var TopicView = require('./App/View/topic/TopicView');
 
 var _navigator;
 BackAndroid.addEventListener('hardwareBackPress', function () {

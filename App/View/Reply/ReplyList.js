@@ -9,8 +9,8 @@ import React, {
     ListView,
 } from 'react-native';
 
-var DataRepository = require('../util/DataRepository');
-var LoadingView = require('../LoadingView');
+var DataRepository = require('../../Util/DataRepository');
+var LoadingView = require('../Common/LoadingView');
 var ReplyItem = require('./ReplyItem');
 var repository = new DataRepository();
 
@@ -21,7 +21,6 @@ var ReplyList = React.createClass({
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2,
             }),
-            isRefreshing: false,
         };
     },
 
@@ -30,13 +29,9 @@ var ReplyList = React.createClass({
     },
 
     fetchData: function () {
-        this.setState({
-            isRefreshing: true,
-        });
         repository.getReplies(this.props.topicId, (responseJson)=> {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(responseJson),
-                isRefreshing: false,
             });
         }, (error) => {
             console.log(error);

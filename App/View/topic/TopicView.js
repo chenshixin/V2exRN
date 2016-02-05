@@ -9,11 +9,11 @@ import React, {
     Image,
 } from 'react-native';
 
-var LoadingView = require('../LoadingView');
+var LoadingView = require('../Common/LoadingView');
 var ReplyList = require('../Reply/ReplyList');
-var HTMLText = require('../util/HTMLText');
-var DividerLine = require('../DividerLine');
-var DateUtil = require('../util/DateUtil');
+var HTMLText = require('../../Util/HTMLText');
+var DividerLine = require('../Common/DividerLine');
+var DateUtil = require('../../Util/DateUtil');
 
 
 var TopicView = React.createClass({
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     },
     topicInfoRepliesCount: {
         justifyContent: 'flex-end',
+        alignItems: 'center'
     },
     topView: {
         padding: 10,

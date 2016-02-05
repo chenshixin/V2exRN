@@ -10,9 +10,9 @@ import React, {
     ListView,
 } from 'react-native';
 
-var DataRepository = require('../util/DataRepository');
+var DataRepository = require('../../Util/DataRepository');
 var TopicItem = require('./TopicItem');
-var LoadingView = require('../LoadingView');
+var LoadingView = require('../Common/LoadingView');
 var repository = new DataRepository();
 
 var TopicList = React.createClass({

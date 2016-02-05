@@ -1,6 +1,6 @@
 // 2015-04-04 重写 html to react native dom 部分
 
-var htmlparser = require("../vendor/htmlparser2");
+var htmlparser = require("./vendor/Htmlparser2");
 var React = require('react-native');
 
 var {
