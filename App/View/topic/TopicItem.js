@@ -19,7 +19,6 @@ var {
 class TopicItem extends Component {
     render() {
         var topic = this.props.topic;
-        console.log(topic);
         var thumbnail = "http:" + topic.member.avatar_normal;
         var title = topic.title;
         if (title.length > 20) {

@@ -1,26 +1,20 @@
 'use strict';
 
-var HOST = "https://www.v2ex.com/api/";
-
-//最热主题
-var API_HOT_TOPICS = HOST + "topics/hot.json";
-//最新主题
-var API_LASEST_TOPICS = HOST + "topics/latest.json";
-//节点信息
-var API_NODES = HOST + "nodes/show.json";
-//用户主页
-var API_MEMBER = HOST + "members/show.json";
-//主题回复
-var API_TOPIC_REPLIES = HOST + 'replies/show.json';
+const HOST = "https://www.v2ex.com/api/";
 
 class DataRepository {
 
-    //将对象转化成uri参数形式
-    _obj2uri(obj) {
-        return Object.keys(obj).map(function (k) {
-            return encodeURIComponent(k) + "=" + encodeURIComponent(obj[k]);
-        }).join('&');
-    }
+    //最热主题
+    static API_HOT_TOPICS = HOST + "topics/hot.json";
+
+    //最新主题
+    static API_LATEST_TOPICS = HOST + "topics/latest.json";
+
+    //某节点下的主题
+    static API_NODE_TOPICS = HOST + "topics/show.json";
+
+    //用户主页
+    static API_MEMBER = HOST + "members/show.json";
 
     baseFetch(url, onSucceed, onFailed) {
         fetch(url)
@@ -34,16 +28,23 @@ class DataRepository {
             .done();
     }
 
-    //获取最热主题
-    getHotTopics(onSucceed, onFailed) {
-        this.baseFetch(API_HOT_TOPICS, onSucceed, onFailed);
+    /**
+     * 获取所有节点信息
+     * @param onSucceed
+     * @param onFailed
+     */
+    getAllNodes(onSucceed, onFailed) {
+        this.baseFetch(HOST + "nodes/all.json", onSucceed, onFailed);
     }
 
     /**
-     * 获取评论
+     * 获取某主题的评论
+     * @param topicId 主题id
+     * @param onSucceed
+     * @param onFailed
      */
     getReplies(topicId, onSucceed, onFailed) {
-        this.baseFetch(API_TOPIC_REPLIES + '?topic_id=' + topicId, onSucceed, onFailed);
+        this.baseFetch(HOST + 'replies/show.json?topic_id=' + topicId, onSucceed, onFailed);
     }
 
 }
