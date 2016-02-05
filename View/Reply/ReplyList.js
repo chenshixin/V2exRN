@@ -1,29 +1,27 @@
 'use strict';
 
-//热门主题
-
 import React, {
     Component,
     StyleSheet,
     Text,
     View,
+    WebView,
     ListView,
 } from 'react-native';
 
 var DataRepository = require('../util/DataRepository');
-var TopicItem = require('./TopicItem');
 var LoadingView = require('../LoadingView');
+var ReplyItem = require('./ReplyItem');
 var repository = new DataRepository();
 
-var TopicList = React.createClass({
+var ReplyList = React.createClass({
 
     getInitialState: function () {
         return {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2,
             }),
-            loaded: false,
-            isRefreshing: true,
+            isRefreshing: false,
         };
     },
 
@@ -32,59 +30,34 @@ var TopicList = React.createClass({
     },
 
     fetchData: function () {
-        repository.getHotTopics((responseJson)=> {
+        this.setState({
+            isRefreshing: true,
+        });
+        repository.getReplies(this.props.topicId, (responseJson)=> {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(responseJson),
-                loaded: true,
                 isRefreshing: false,
             });
         }, (error) => {
             console.log(error);
-        });
+        })
     },
 
     render: function () {
-        if (!this.state.loaded) {
-            return this.renderLoadingView();
-        } else {
-            return this.renderListView();
-        }
-    },
-
-    //loading界面
-    renderLoadingView: function () {
-        return (
-            <LoadingView />
-        );
-    },
-
-    renderListView: function () {
         return (
             <ListView
                 dataSource={this.state.dataSource}
-                renderRow={this.renderTopic}
+                renderRow={this.renderReply}
                 style={styles.listView}
             />
-        );
+        )
     },
 
-    renderTopic: function (topic) {
+    renderReply: function (reply) {
         return (
-            <TopicItem
-                topic={topic}
-                onSelect={() => {
-                this.selectTopic(topic);
-              }}/>
-        );
-    },
-
-    selectTopic: function (topic) {
-        this.props.navigator.push({
-            title: topic.title,
-            name: 'topic',
-            topic: topic,
-        });
-    },
+            <ReplyItem reply={reply}/>
+        )
+    }
 
 });
 
@@ -94,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = TopicList;
+module.exports = ReplyList;
